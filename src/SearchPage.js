@@ -1,8 +1,47 @@
 import React from 'react';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
+//import escapeRegExp from 'escape-string-regexp'
 
 class SearchPage extends React.Component {
+    state = {
+        query: '',
+        searchedBooks: []
+    }
+
+    updateQuery = (query) => {
+        this.setState({
+            query: query
+        })
+        this.updateSearchedBooks(query);
+    }
+
+    updateSearchedBooks = (query) => {
+        if (query) {
+            BooksAPI.search(query).then((searchedBooks) => {
+                if (searchedBooks.error) {
+                    this.setState({ searchedBooks: [] });
+                } else {
+                    this.setState({ searchedBooks });
+                }
+            })
+        } else {
+            this.setState({ searchedBooks: [] });
+        }
+
+    }
 
     render() {
+        console.log(this.state.query);
+/*         let showingBooks;
+        if (this.state.query) {
+            const match = new RegExp(escapeRegExp(this.state.query), 'i');
+            showingBooks = this.props.books.filter((book) => match.test(book.title));
+        } else {
+            showingBooks = [];
+            // Don't show any books if there's no query string
+        } */
+ 
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -16,14 +55,32 @@ class SearchPage extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                        <input type="text" placeholder="Search by title or author" />
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            value={this.state.query}
+                            onChange={(event) => this.updateQuery(event.target.value)}
+                        />
 
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <ol className="books-grid">
+                        {
+                            this.state.searchedBooks
+                                .map(book => (
+                                    <li key={book.id}>
+                                        <Book
+                                            book={book}
+                                            moveShelf={this.props.moveShelf}
+                                            currentShelf="none"
+                                        />
+                                    </li>
+                                ))
+                        }
+                    </ol>
                 </div>
-            </div>            
+            </div>
         );
     }
 }
