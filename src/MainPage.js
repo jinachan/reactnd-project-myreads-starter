@@ -25,34 +25,10 @@ class MainPage extends React.Component {
                                         moveShelf={this.props.moveShelf}
                                         currentShelf={shelf.value}
                                         shelfTitle={shelf.title}
+                                        key={shelf.value}
                                     />
                             ))
                         }
-
-{/*                         <div className="bookshelf">
-                            <h2 className="bookshelf-title">Currently Reading</h2>
-                            <Shelf
-                                books={this.props.books}
-                                moveShelf={this.props.moveShelf}
-                                currentShelf="currentlyReading"
-                            />
-                        </div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Want to Read</h2>
-                            <Shelf
-                                books={this.props.books}
-                                moveShelf={this.props.moveShelf}
-                                currentShelf="wantToRead"
-                            />
-                        </div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Read</h2>
-                            <Shelf
-                                books={this.props.books}
-                                moveShelf={this.props.moveShelf}
-                                currentShelf="read"
-                            />
-                        </div> */}
                     </div>
                 </div>
                 <div className="open-search">
