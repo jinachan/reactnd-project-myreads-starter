@@ -19,6 +19,12 @@ class SearchPage extends React.Component {
 
     updateSearchedBooks = (query) => {
         if (query) {
+            // Tried using .catch() but it didn't work
+/*             BooksAPI.search(query)
+                .then((searchedBooks) => { 
+                    this.setState({ searchedBooks }); 
+                })
+                .catch(() => this.setState({ searchedBooks: [] }) ); */
             BooksAPI.search(query).then((searchedBooks) => {
                 if (searchedBooks.error) {
                     this.setState({ searchedBooks: [] });
