@@ -34,7 +34,7 @@ class SearchPage extends React.Component {
 
     render() {
         //console.log(this.state.query);
-        
+
         // This is how the contacts app handles searching:
 /*         let showingBooks;
         if (this.state.query) {
@@ -70,17 +70,25 @@ class SearchPage extends React.Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {
-                            this.state.searchedBooks
-                                .map(book => (
-                                    <li key={book.id}>
+                            this.state.searchedBooks.map(searchedBook => {
+                                let shelf = 'none';
+
+                                this.props.books.map(book => (
+                                    book.id === searchedBook.id ?
+                                    shelf = book.shelf :
+                                    ''
+                                ));
+
+                                return (
+                                    <li key={searchedBook.id}>
                                         <Book
-                                            book={book}
+                                            book={searchedBook}
                                             moveShelf={this.props.moveShelf}
-                                            currentShelf="none"
-                                            // TO DO: identify the actual shelf
+                                            currentShelf={shelf}
                                         />
                                     </li>
-                                ))
+                                );
+                            })
                         }
                     </ol>
                 </div>
