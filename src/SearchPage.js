@@ -33,6 +33,7 @@ class SearchPage extends React.Component {
 
     render() {
         console.log(this.state.query);
+        // This is how the contacts app handles searching
 /*         let showingBooks;
         if (this.state.query) {
             const match = new RegExp(escapeRegExp(this.state.query), 'i');
@@ -74,6 +75,7 @@ class SearchPage extends React.Component {
                                             book={book}
                                             moveShelf={this.props.moveShelf}
                                             currentShelf="none"
+                                            // TO DO: identify the actual shelf
                                         />
                                     </li>
                                 ))
